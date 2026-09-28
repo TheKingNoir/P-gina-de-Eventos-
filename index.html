@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Una Invitación en la Oscuridad...</title>
-    <!-- Fuentes góticas de Google Fonts -->
+    <title>El Convite de las Sombras...</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=UnifrakturMaguntia&family=Special+Elite&display=swap" rel="stylesheet">
     
     <style>
@@ -27,7 +26,6 @@
             padding: 20px;
         }
 
-        /* Contenedor principal tipo pergamino/altar gótico */
         .invitation-container {
             background: #0a0a0a;
             border: 2px solid #3a0000;
@@ -39,7 +37,6 @@
             text-align: center;
         }
 
-        /* Esquinas decorativas góticas */
         .invitation-container::before, .invitation-container::after {
             content: '❦';
             position: absolute;
@@ -84,7 +81,6 @@
             font-weight: bold;
         }
 
-        /* Estilos del Formulario */
         form {
             display: flex;
             flex-direction: column;
@@ -121,6 +117,13 @@
             background-color: #1a0505;
         }
 
+        /* Estilo para opciones deshabilitadas (disfraz ocupado) */
+        select option:disabled {
+            color: #444;
+            background-color: #1a0505;
+            font-style: italic;
+        }
+
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -154,7 +157,6 @@
             box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
         }
 
-        /* Mensaje de respuesta oculto inicialmente */
         #response-message {
             display: none;
             margin-top: 25px;
@@ -170,12 +172,12 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Detalles adicionales de fecha/lugar */
         .event-details {
             margin: 20px 0;
             font-size: 0.9rem;
             color: #8b0000;
             font-weight: bold;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -186,13 +188,13 @@
         <h2>Has sido convocado</h2>
 
         <div class="story-text">
-            Las puertas del viejo mausoleo se abrirán una vez más bajo la luz de la luna menguante. 
+            Las puertas del viejo mausoleo se abrirán bajo la luz de la luna llena. 
             El <span>olvido</span> aguarda a aquellos que decidan cruzar el umbral. 
-            Tu presencia ha sido decretada, pero el destino de tu alma esa noche depende exclusivamente de tu respuesta.
+            Elige tu vestimenta con sabiduría: ningún alma puede replicar la misma apariencia en este plano.
         </div>
 
         <div class="event-details">
-            📅 Fecha: La Noche de los Caídos<br>
+            📅 Fecha: Sábado 10 de octubre<br>
             📍 Lugar: Cripta Subterránea N° 666
         </div>
 
@@ -213,8 +215,24 @@
             </div>
 
             <div>
+                <label for="disfraz">Elige tu Disfraz (Único por invitado):</label>
+                <select id="disfraz" name="disfraz" required>
+                    <option value="" disabled selected>Cargando vestimentas disponibles...</option>
+                    <!-- Opciones de disfraces góticos/terror -->
+                    <option value="Vampiro Tradicional">Vampiro Tradicional</option>
+                    <option value="Zombie Errante">Zombie Errante</option>
+                    <option value="Bruja de los Páramos">Bruja de los Páramos</option>
+                    <option value="Fantasma Errante">Fantasma Errante</option>
+                    <option value="Demonio de la Cripta">Demonio de la Cripta</option>
+                    <option value="Calavera Catrina">Calavera Catrina</option>
+                    <option value="Licántropo">Licántropo</option>
+                    <option value="Cuervo de la Muerte">Cuervo de la Muerte</option>
+                </select>
+            </div>
+
+            <div>
                 <label for="ofrenda">¿Qué ofrenda o secreto traerás?</label>
-                <textarea id="ofrenda" name="ofrenda" rows="3" placeholder="Menciona alguna restricción alimentaria, alergia... o un secreto oscuro."></textarea>
+                <textarea id="ofrenda" name="ofrenda" rows="3" placeholder="Restricciones, alergias o un secreto oscuro..."></textarea>
             </div>
 
             <div class="checkbox-group">
@@ -226,26 +244,83 @@
         </form>
 
         <div id="response-message">
-            Tu respuesta ha quedado grabada en la piedra eterna. Nos veremos en la oscuridad...
+            Tu respuesta y tu vestimenta han quedado grabadas en la piedra eterna. Nos veremos en la oscuridad...
         </div>
     </div>
 
     <script>
-        function handleSubmission(event) {
-            event.preventDefault(); // Evita que la página se recargue
+        // URL de tu API de Google Sheets (Reemplaza esto cuando crees tu SheetDB)
+        const API_URL = "https://sheetdb.io/api/v1/TU_ID_DE_SHEETDB";
+
+        // Al cargar la página, consultamos qué disfraces ya fueron elegidos para bloquearlos
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                
+                // Extraer todos los disfraces que ya han sido seleccionados
+                const disfracesOcupados = data.map(row => row.disfraz);
+                
+                const selectDisfraz = document.getElementById('disfraz');
+                selectDisfraz.innerHTML = '<option value="" disabled selected>Selecciona tu vestimenta...</option>';
+                
+                // Lista total de disfraces disponibles en la invitación
+                const todosLosDisfraces = [
+                    "Vampiro Tradicional", "Zombie Errante", "Bruja de los Páramos", 
+                    "Fantasma Errante", "Demonio de la Cripta", "Calavera Catrina", 
+                    "Licántropo", "Cuervo de la Muerte"
+                ];
+
+                todosLosDisfraces.forEach(disfraz => {
+                    const option = document.createElement('option');
+                    option.value = disfraz;
+                    option.textContent = disfraz;
+                    
+                    // Si ya fue elegido por alguien más, lo desactivamos y añadimos una etiqueta
+                    if (disfracesOcupados.includes(disfraz)) {
+                        option.disabled = true;
+                        option.textContent += " [YA OCUPADO]";
+                    }
+                    selectDisfraz.appendChild(option);
+                });
+            } catch (error) {
+                // Si aún no configuras la API o falla, muestra las opciones normales temporalmente
+                console.log("Modo local o error de conexión con la base de datos.");
+            }
+        });
+
+        async function handleSubmission(event) {
+            event.preventDefault();
             
-            // Ocultar el formulario de manera tétrica
+            const formData = {
+                nombre: document.getElementById('nombre').value,
+                asistencia: document.getElementById('asistencia').value,
+                disfraz: document.getElementById('disfraz').value,
+                ofrenda: document.getElementById('ofrenda').value
+            };
+
+            // Intentar enviar los datos a la base de datos en la nube
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ data: [formData] })
+                });
+            } catch (error) {
+                console.error("Error al registrar el pacto", error);
+            }
+
+            // Efecto visual de envío exitoso
             const form = document.getElementById('gothicForm');
             form.style.opacity = '0.2';
             form.style.pointerEvents = 'none';
 
-            // Mostrar el mensaje de éxito/misterio
             const responseMessage = document.getElementById('response-message');
             responseMessage.style.display = 'block';
-
-            // Opcional: Aquí podrías añadir código para enviar los datos a un servidor o backend (como EmailJS, Formspree, etc.)
         }
     </script>
-
 </body>
 </html>
