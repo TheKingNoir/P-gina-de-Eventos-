@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Una Invitación en la Oscuridad...</title>
+    <!-- Fuentes góticas de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=UnifrakturMaguntia&family=Special+Elite&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #050505;
+            color: #b0b0b0;
+            font-family: 'Special Elite', cursive;
+            background-image: radial-gradient(circle, #1a0000 0%, #050505 80%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Contenedor principal tipo pergamino/altar gótico */
+        .invitation-container {
+            background: #0a0a0a;
+            border: 2px solid #3a0000;
+            box-shadow: 0 0 30px rgba(139, 0, 0, 0.4), inset 0 0 50px rgba(0, 0, 0, 0.9);
+            max-width: 650px;
+            width: 100%;
+            padding: 40px;
+            position: relative;
+            text-align: center;
+        }
+
+        /* Esquinas decorativas góticas */
+        .invitation-container::before, .invitation-container::after {
+            content: '❦';
+            position: absolute;
+            color: #5c0000;
+            font-size: 24px;
+        }
+        .invitation-container::before { top: 10px; left: 15px; }
+        .invitation-container::after { top: 10px; right: 15px; }
+
+        h1 {
+            font-family: 'UnifrakturMaguntia', cursive;
+            color: #8b0000;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px #000;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-family: 'Cinzel Decorative', serif;
+            color: #d3d3d3;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            border-bottom: 1px solid #3a0000;
+            border-top: 1px solid #3a0000;
+            padding: 10px 0;
+        }
+
+        .story-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #999;
+            margin-bottom: 30px;
+            text-align: justify;
+            padding: 0 10px;
+        }
+
+        .story-text span {
+            color: #cf6679;
+            font-weight: bold;
+        }
+
+        /* Estilos del Formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: left;
+            margin-top: 20px;
+            border-top: 1px dashed #2a0000;
+            padding-top: 25px;
+        }
+
+        label {
+            font-size: 0.9rem;
+            color: #b5b5b5;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"], select, textarea {
+            width: 100%;
+            background-color: #121212;
+            border: 1px solid #3a0000;
+            color: #e0e0e0;
+            padding: 12px;
+            font-family: 'Special Elite', cursive;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #8b0000;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
+            background-color: #1a0505;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        input[type="checkbox"] {
+            accent-color: #8b0000;
+            width: 18px;
+            height: 18px;
+        }
+
+        button {
+            background-color: #3a0000;
+            color: #e0e0e0;
+            border: 1px solid #8b0000;
+            padding: 15px;
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background-color: #8b0000;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        /* Mensaje de respuesta oculto inicialmente */
+        #response-message {
+            display: none;
+            margin-top: 25px;
+            font-size: 1.2rem;
+            color: #cf6679;
+            font-family: 'Cinzel Decorative', serif;
+            text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Detalles adicionales de fecha/lugar */
+        .event-details {
+            margin: 20px 0;
+            font-size: 0.9rem;
+            color: #8b0000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-container">
+        <h1>El Convite de las Sombras</h1>
+        <h2>Has sido convocado</h2>
+
+        <div class="story-text">
+            Las puertas del viejo mausoleo se abrirán una vez más bajo la luz de la luna menguante. 
+            El <span>olvido</span> aguarda a aquellos que decidan cruzar el umbral. 
+            Tu presencia ha sido decretada, pero el destino de tu alma esa noche depende exclusivamente de tu respuesta.
+        </div>
+
+        <div class="event-details">
+            📅 Fecha: La Noche de los Caídos<br>
+            📍 Lugar: Cripta Subterránea N° 666
+        </div>
+
+        <form id="gothicForm" onsubmit="handleSubmission(event)">
+            <div>
+                <label for="nombre">Tu Nombre o Alias en la Oscuridad:</label>
+                <input type="text" id="nombre" name="nombre" required placeholder="Ej. Conde de la Bruma...">
+            </div>
+
+            <div>
+                <label for="asistencia">¿Aceptarás la condenación temporal?</label>
+                <select id="asistencia" name="asistencia" required>
+                    <option value="" disabled selected>Selecciona tu destino...</option>
+                    <option value="si">Sí, asistiré a entregar mi alma (Confirmado)</option>
+                    <option value="no">No, la luz del sol me retiene (Rechazado)</option>
+                    <option value="talvez">Quizás deambule por los pasillos (Indeciso)</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="ofrenda">¿Qué ofrenda o secreto traerás?</label>
+                <textarea id="ofrenda" name="ofrenda" rows="3" placeholder="Menciona alguna restricción alimentaria, alergia... o un secreto oscuro."></textarea>
+            </div>
+
+            <div class="checkbox-group">
+                <input type="checkbox" id="pacto" name="pacto" required>
+                <label for="pacto" style="margin-bottom: 0; cursor: pointer;">Juro guardar silencio sobre lo que ocurra esta noche.</label>
+            </div>
+
+            <button type="submit">Sellas tu Destino</button>
+        </form>
+
+        <div id="response-message">
+            Tu respuesta ha quedado grabada en la piedra eterna. Nos veremos en la oscuridad...
+        </div>
+    </div>
+
+    <script>
+        function handleSubmission(event) {
+            event.preventDefault(); // Evita que la página se recargue
+            
+            // Ocultar el formulario de manera tétrica
+            const form = document.getElementById('gothicForm');
+            form.style.opacity = '0.2';
+            form.style.pointerEvents = 'none';
+
+            // Mostrar el mensaje de éxito/misterio
+            const responseMessage = document.getElementById('response-message');
+            responseMessage.style.display = 'block';
+
+            // Opcional: Aquí podrías añadir código para enviar los datos a un servidor o backend (como EmailJS, Formspree, etc.)
+        }
+    </script>
+
+</body>
+</html>
