@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Convite de las Sombras...</title>
+    <title>El Baile de las Sombras...</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=UnifrakturMaguntia&family=Special+Elite&display=swap" rel="stylesheet">
     
     <style>
@@ -117,13 +117,6 @@
             background-color: #1a0505;
         }
 
-        select option:disabled {
-            color: #444;
-            background-color: #1a0505;
-            font-style: italic;
-        }
-
-        /* Ocultar campo personalizado al inicio */
         #custom-costume-container {
             display: none;
         }
@@ -171,13 +164,6 @@
             animation: fadeIn 1.5s ease;
         }
 
-        #error-message {
-            color: #ff4d4d;
-            font-size: 0.85rem;
-            display: none;
-            margin-top: 5px;
-        }
-
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -195,13 +181,13 @@
 <body>
 
     <div class="invitation-container">
-        <h1>El Convite de las Sombras</h1>
+        <h1>El baile de las sombras</h1>
         <h2>Has sido convocado</h2>
 
         <div class="story-text">
-            Las puertas del viejo mausoleo se abrirán bajo la luz de la luna llena. 
-            El <span>olvido</span> aguarda a aquellos que decidan cruzar el umbral. 
-            Elige tu vestimenta con sabiduría: ningún alma puede replicar la misma apariencia en este plano.
+            Las puertas del viejo mausoleo se abrirán bajo la luz de la luna llena el próximo <span>sábado 10 de octubre</span>. 
+            El olvido aguarda a aquellos que decidan cruzar el umbral. 
+            Sella tu destino para notificar tu presencia a los anfitriones.
         </div>
 
         <div class="event-details">
@@ -209,7 +195,7 @@
             📍 Lugar: Cripta Subterránea N° 666
         </div>
 
-        <form id="gothicForm" onsubmit="handleSubmission(event)">
+        <form id="gothicForm" onsubmit="handleWhatsAppSubmission(event)">
             <div>
                 <label for="nombre">Tu Nombre o Alias en la Oscuridad:</label>
                 <input type="text" id="nombre" name="nombre" required placeholder="Ej. Conde de la Bruma...">
@@ -219,16 +205,16 @@
                 <label for="asistencia">¿Aceptarás la condenación temporal?</label>
                 <select id="asistencia" name="asistencia" required>
                     <option value="" disabled selected>Selecciona tu destino...</option>
-                    <option value="si">Sí, asistiré a entregar mi alma (Confirmado)</option>
-                    <option value="no">No, la luz del sol me retiene (Rechazado)</option>
-                    <option value="talvez">Quizás deambule por los pasillos (Indeciso)</option>
+                    <option value="Sí, asistiré (Confirmado)">Sí, asistiré a entregar mi alma (Confirmado)</option>
+                    <option value="No asistiré (Rechazado)">No, la luz del sol me retiene (Rechazado)</option>
+                    <option value="Tal vez (Indeciso)">Quizás deambule por los pasillos (Indeciso)</option>
                 </select>
             </div>
 
             <div>
                 <label for="disfraz">Elige tu Disfraz:</label>
                 <select id="disfraz" name="disfraz" required onchange="checkCustomOption(this)">
-                    <option value="" disabled selected>Cargando vestimentas disponibles...</option>
+                    <option value="" disabled selected>Selecciona tu vestimenta...</option>
                     <option value="Vampiro Tradicional">Vampiro Tradicional</option>
                     <option value="Zombie Errante">Zombie Errante</option>
                     <option value="Bruja de los Páramos">Bruja de los Páramos</option>
@@ -241,11 +227,9 @@
                 </select>
             </div>
 
-            <!-- Campo oculto por si eligen "Otro" -->
             <div id="custom-costume-container">
                 <label for="otroDisfraz">Escribe tu disfraz personalizado:</label>
                 <input type="text" id="otroDisfraz" name="otroDisfraz" placeholder="Ej. Espectro sin cabeza...">
-                <div id="error-message">Este disfraz ya ha sido reclamado por otra alma. Elige otro.</div>
             </div>
 
             <div>
@@ -262,55 +246,11 @@
         </form>
 
         <div id="response-message">
-            Tu respuesta y tu vestimenta han quedado grabadas en la piedra eterna. Nos veremos en la oscuridad...
+            Tu pacto ha sido enviado por las sendas oscuras hacia WhatsApp. ¡Nos veremos en la noche del baile!
         </div>
     </div>
 
     <script>
-        const API_URL = "https://sheetdb.io/api/v1/TU_ID_DE_SHEETDB";
-        let disfracesOcupados = [];
-
-        window.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
-                
-                // Guardar todos los disfraces ocupados (incluyendo los personalizados que ya hayan registrado)
-                disfracesOcupados = data.map(row => row.disfraz ? row.disfraz.trim().toLowerCase() : '');
-                
-                const selectDisfraz = document.getElementById('disfraz');
-                selectDisfraz.innerHTML = '<option value="" disabled selected>Selecciona tu vestimenta...</option>';
-                
-                const todosLosDisfraces = [
-                    "Vampiro Tradicional", "Zombie Errante", "Bruja de los Páramos", 
-                    "Fantasma Errante", "Demonio de la Cripta", "Calavera Catrina", 
-                    "Licántropo", "Cuervo de la Muerte"
-                ];
-
-                todosLosDisfraces.forEach(disfraz => {
-                    const option = document.createElement('option');
-                    option.value = disfraz;
-                    option.textContent = disfraz;
-                    
-                    if (disfracesOcupados.includes(disfraz.toLowerCase())) {
-                        option.disabled = true;
-                        option.textContent += " [YA OCUPADO]";
-                    }
-                    selectDisfraz.appendChild(option);
-                });
-
-                // Añadir de nuevo la opción "OTRO" al final
-                const optionOtro = document.createElement('option');
-                optionOtro.value = "OTRO";
-                optionOtro.textContent = "Otro (Especifícalo tú mismo...)";
-                selectDisfraz.appendChild(optionOtro);
-
-            } catch (error) {
-                console.log("Modo local o error de conexión con la base de datos.");
-            }
-        });
-
-        // Mostrar u ocultar el campo de texto si seleccionan "OTRO"
         function checkCustomOption(selectElement) {
             const customContainer = document.getElementById('custom-costume-container');
             const customInput = document.getElementById('otroDisfraz');
@@ -321,50 +261,37 @@
                 customContainer.style.display = "none";
                 customInput.required = false;
                 customInput.value = "";
-                document.getElementById('error-message').style.display = "none";
             }
         }
 
-        async function handleSubmission(event) {
+        function handleWhatsAppSubmission(event) {
             event.preventDefault();
             
-            let disfrazFinal = document.getElementById('disfraz').value;
-            const errorMsg = document.getElementById('error-message');
+            // ⚠️ CAMBIA ESTE NÚMERO por tu número de WhatsApp con código de país (ej: 549..., 521..., 57...)
+            const tuNumeroWhatsApp = "+584125891414"; 
 
-            // Si eligió "OTRO", tomamos el texto que escribió
-            if (disfrazFinal === "OTRO") {
-                disfrazFinal = document.getElementById('otroDisfraz').value.trim();
-                
-                // Verificamos si ese disfraz personalizado ya existe en los ocupados
-                if (disfracesOcupados.includes(disfrazFinal.toLowerCase())) {
-                    errorMsg.style.display = "block";
-                    return; // Detiene el envío si ya está repetido
-                }
+            const nombre = document.getElementById('nombre').value;
+            const asistencia = document.getElementById('asistencia').value;
+            
+            let disfraz = document.getElementById('disfraz').value;
+            if (disfraz === "OTRO") {
+                disfraz = document.getElementById('otroDisfraz').value;
             }
+            
+            const ofrenda = document.getElementById('ofrenda').value || "Ninguna";
 
-            errorMsg.style.display = "none";
+            // Armar el mensaje formateado para WhatsApp
+            const mensaje = `🦇 *NUEVO PACTO - EL BAILE DE LAS SOMBRAS* 🦇%0A%0A` +
+                            `👤 *Nombre:* ${encodeURIComponent(nombre)}%0A` +
+                            `🕯️ *Asistencia:* ${encodeURIComponent(asistencia)}%0A` +
+                            `🎭 *Disfraz:* ${encodeURIComponent(disfraz)}%0A` +
+                            `🍷 *Ofrenda/Secreto:* ${encodeURIComponent(ofrenda)}`;
 
-            const formData = {
-                nombre: document.getElementById('nombre').value,
-                asistencia: document.getElementById('asistencia').value,
-                disfraz: disfrazFinal,
-                ofrenda: document.getElementById('ofrenda').value
-            };
+            // Abrir WhatsApp con el mensaje preparado
+            const urlWhatsApp = `https://api.whatsapp.com/send?phone=${tuNumeroWhatsApp}&text=${mensaje}`;
+            window.open(urlWhatsApp, '_blank');
 
-            try {
-                await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ data: [formData] })
-                });
-            } catch (error) {
-                console.error("Error al registrar el pacto", error);
-            }
-
-            // Efecto visual de éxito
+            // Efecto visual de confirmación en la página
             const form = document.getElementById('gothicForm');
             form.style.opacity = '0.2';
             form.style.pointerEvents = 'none';
