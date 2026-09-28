@@ -117,11 +117,15 @@
             background-color: #1a0505;
         }
 
-        /* Estilo para opciones deshabilitadas (disfraz ocupado) */
         select option:disabled {
             color: #444;
             background-color: #1a0505;
             font-style: italic;
+        }
+
+        /* Ocultar campo personalizado al inicio */
+        #custom-costume-container {
+            display: none;
         }
 
         .checkbox-group {
@@ -165,6 +169,13 @@
             font-family: 'Cinzel Decorative', serif;
             text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
             animation: fadeIn 1.5s ease;
+        }
+
+        #error-message {
+            color: #ff4d4d;
+            font-size: 0.85rem;
+            display: none;
+            margin-top: 5px;
         }
 
         @keyframes fadeIn {
@@ -215,10 +226,9 @@
             </div>
 
             <div>
-                <label for="disfraz">Elige tu Disfraz (Único por invitado):</label>
-                <select id="disfraz" name="disfraz" required>
+                <label for="disfraz">Elige tu Disfraz:</label>
+                <select id="disfraz" name="disfraz" required onchange="checkCustomOption(this)">
                     <option value="" disabled selected>Cargando vestimentas disponibles...</option>
-                    <!-- Opciones de disfraces góticos/terror -->
                     <option value="Vampiro Tradicional">Vampiro Tradicional</option>
                     <option value="Zombie Errante">Zombie Errante</option>
                     <option value="Bruja de los Páramos">Bruja de los Páramos</option>
@@ -227,7 +237,15 @@
                     <option value="Calavera Catrina">Calavera Catrina</option>
                     <option value="Licántropo">Licántropo</option>
                     <option value="Cuervo de la Muerte">Cuervo de la Muerte</option>
+                    <option value="OTRO">Otro (Especifícalo tú mismo...)</option>
                 </select>
+            </div>
+
+            <!-- Campo oculto por si eligen "Otro" -->
+            <div id="custom-costume-container">
+                <label for="otroDisfraz">Escribe tu disfraz personalizado:</label>
+                <input type="text" id="otroDisfraz" name="otroDisfraz" placeholder="Ej. Espectro sin cabeza...">
+                <div id="error-message">Este disfraz ya ha sido reclamado por otra alma. Elige otro.</div>
             </div>
 
             <div>
@@ -249,22 +267,20 @@
     </div>
 
     <script>
-        // URL de tu API de Google Sheets (Reemplaza esto cuando crees tu SheetDB)
         const API_URL = "https://sheetdb.io/api/v1/TU_ID_DE_SHEETDB";
+        let disfracesOcupados = [];
 
-        // Al cargar la página, consultamos qué disfraces ya fueron elegidos para bloquearlos
         window.addEventListener('DOMContentLoaded', async () => {
             try {
                 const response = await fetch(API_URL);
                 const data = await response.json();
                 
-                // Extraer todos los disfraces que ya han sido seleccionados
-                const disfracesOcupados = data.map(row => row.disfraz);
+                // Guardar todos los disfraces ocupados (incluyendo los personalizados que ya hayan registrado)
+                disfracesOcupados = data.map(row => row.disfraz ? row.disfraz.trim().toLowerCase() : '');
                 
                 const selectDisfraz = document.getElementById('disfraz');
                 selectDisfraz.innerHTML = '<option value="" disabled selected>Selecciona tu vestimenta...</option>';
                 
-                // Lista total de disfraces disponibles en la invitación
                 const todosLosDisfraces = [
                     "Vampiro Tradicional", "Zombie Errante", "Bruja de los Páramos", 
                     "Fantasma Errante", "Demonio de la Cripta", "Calavera Catrina", 
@@ -276,30 +292,65 @@
                     option.value = disfraz;
                     option.textContent = disfraz;
                     
-                    // Si ya fue elegido por alguien más, lo desactivamos y añadimos una etiqueta
-                    if (disfracesOcupados.includes(disfraz)) {
+                    if (disfracesOcupados.includes(disfraz.toLowerCase())) {
                         option.disabled = true;
                         option.textContent += " [YA OCUPADO]";
                     }
                     selectDisfraz.appendChild(option);
                 });
+
+                // Añadir de nuevo la opción "OTRO" al final
+                const optionOtro = document.createElement('option');
+                optionOtro.value = "OTRO";
+                optionOtro.textContent = "Otro (Especifícalo tú mismo...)";
+                selectDisfraz.appendChild(optionOtro);
+
             } catch (error) {
-                // Si aún no configuras la API o falla, muestra las opciones normales temporalmente
                 console.log("Modo local o error de conexión con la base de datos.");
             }
         });
 
+        // Mostrar u ocultar el campo de texto si seleccionan "OTRO"
+        function checkCustomOption(selectElement) {
+            const customContainer = document.getElementById('custom-costume-container');
+            const customInput = document.getElementById('otroDisfraz');
+            if (selectElement.value === "OTRO") {
+                customContainer.style.display = "block";
+                customInput.required = true;
+            } else {
+                customContainer.style.display = "none";
+                customInput.required = false;
+                customInput.value = "";
+                document.getElementById('error-message').style.display = "none";
+            }
+        }
+
         async function handleSubmission(event) {
             event.preventDefault();
             
+            let disfrazFinal = document.getElementById('disfraz').value;
+            const errorMsg = document.getElementById('error-message');
+
+            // Si eligió "OTRO", tomamos el texto que escribió
+            if (disfrazFinal === "OTRO") {
+                disfrazFinal = document.getElementById('otroDisfraz').value.trim();
+                
+                // Verificamos si ese disfraz personalizado ya existe en los ocupados
+                if (disfracesOcupados.includes(disfrazFinal.toLowerCase())) {
+                    errorMsg.style.display = "block";
+                    return; // Detiene el envío si ya está repetido
+                }
+            }
+
+            errorMsg.style.display = "none";
+
             const formData = {
                 nombre: document.getElementById('nombre').value,
                 asistencia: document.getElementById('asistencia').value,
-                disfraz: document.getElementById('disfraz').value,
+                disfraz: disfrazFinal,
                 ofrenda: document.getElementById('ofrenda').value
             };
 
-            // Intentar enviar los datos a la base de datos en la nube
             try {
                 await fetch(API_URL, {
                     method: 'POST',
@@ -313,7 +364,7 @@
                 console.error("Error al registrar el pacto", error);
             }
 
-            // Efecto visual de envío exitoso
+            // Efecto visual de éxito
             const form = document.getElementById('gothicForm');
             form.style.opacity = '0.2';
             form.style.pointerEvents = 'none';
