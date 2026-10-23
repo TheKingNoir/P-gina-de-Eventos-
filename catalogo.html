@@ -333,4 +333,542 @@
 
         .option-group select,
         .option-group input {
-  
+            padding: 8px 10px;
+            border: 1px solid rgba(197, 160, 89, 0.5);
+            border-radius: 5px;
+            background-color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .option-group select:focus,
+        .option-group input:focus {
+            border-color: var(--black-deep);
+        }
+
+        /* Botón de Comprar (WhatsApp) */
+        .btn-whatsapp {
+            margin-top: auto;
+            width: 100%;
+            padding: 13px;
+            background-color: var(--black-deep);
+            color: var(--gold-light);
+            border: 1px solid var(--gold-primary);
+            border-radius: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--gold-primary);
+            color: var(--black-deep);
+            box-shadow: 0 5px 15px rgba(197, 160, 89, 0.35);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--black-deep);
+            color: var(--bg-cream);
+            text-align: center;
+            padding: 35px 6%;
+            border-top: 2px solid var(--gold-primary);
+            font-size: 0.8rem;
+        }
+
+        footer span {
+            color: var(--gold-primary);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .catalog-hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        ✨ Selecciona tu prenda, elige tus detalles y pide directo por WhatsApp ✨
+    </div>
+
+    <header>
+        <a href="index.html" class="brand-container">
+            <img src="logo.jpg" alt="Logo ZUVAA" class="logo-img">
+            <div class="brand-text">
+                <span class="brand-title">ZUVAA</span>
+                <span class="brand-slogan">Ilumina tu estilo</span>
+            </div>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="#" class="active">Catálogo</a></li>
+        </ul>
+    </header>
+
+    <!-- Sección Principal del Catálogo -->
+    <section class="catalog-hero">
+        <span class="badge">Tienda Oficial</span>
+        <h1>Catálogo de Temporada</h1>
+        <p class="cursive">Ilumina tu estilo</p>
+        <p class="desc">Personaliza tu pedido eligiendo color, talla, cantidad y ciudad de destino. Al presionar comprar, te atenderemos de inmediato en nuestro WhatsApp.</p>
+    </section>
+
+    <!-- Botones de Categoría -->
+    <div class="category-nav">
+        <button class="cat-btn active" onclick="filtrarCategoria('todos', this)">Todas las Prendas</button>
+        <button class="cat-btn" onclick="filtrarCategoria('vestidos', this)">Vestidos</button>
+        <button class="cat-btn" onclick="filtrarCategoria('blusas', this)">Blusas & Tops</button>
+        <button class="cat-btn" onclick="filtrarCategoria('conjuntos', this)">Conjuntos</button>
+        <button class="cat-btn" onclick="filtrarCategoria('pantalones', this)">Pantalones</button>
+    </div>
+
+    <!-- Contenedor del Catálogo -->
+    <section class="catalog-container">
+        <div class="product-grid">
+
+            <!-- ================= PRODUCTO 1 (VESTIDOS) ================= -->
+            <div class="product-card" data-category="vestidos" data-name="Vestido Gala Champagne" data-price="45">
+                <span class="badge-tag gold">Destacado</span>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=700&q=80" alt="Vestido Gala Champagne">
+                </div>
+                <div class="product-body">
+                    <span class="product-cat-label">Vestidos</span>
+                    <div class="product-header-row">
+                        <h3 class="product-title">Vestido Gala Champagne</h3>
+                        <span class="product-price">$45.00</span>
+                    </div>
+
+                    <div class="options-grid">
+                        <div class="option-group">
+                            <label>Talla:</label>
+                            <select class="select-size">
+                                <option value="S">Talla S</option>
+                                <option value="M" selected>Talla M</option>
+                                <option value="L">Talla L</option>
+                                <option value="XL">Talla XL</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Cantidad:</label>
+                            <input type="number" class="select-qty" value="1" min="1" max="20">
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Color disponible:</label>
+                            <select class="select-color">
+                                <option value="Dorado Champagne">Dorado Champagne</option>
+                                <option value="Negro Noche">Negro Noche</option>
+                                <option value="Verde Salvia">Verde Salvia</option>
+                            </select>
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Ciudad de Envío:</label>
+                            <select class="select-city">
+                                <option value="" disabled selected>Selecciona tu ciudad...</option>
+                                <option value="Barquisimeto">Barquisimeto</option>
+                                <option value="Quíbor">Quíbor</option>
+                                <option value="Cabudare">Cabudare</option>
+                                <option value="Carora">Carora</option>
+                                <option value="Caracas">Caracas</option>
+                                <option value="Valencia">Valencia</option>
+                                <option value="Maracay">Maracay</option>
+                                <option value="Maracaibo">Maracaibo</option>
+                                <option value="Otra ciudad (Especificar en chat)">Otra ciudad</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn-whatsapp" onclick="comprarPorWhatsApp(this)">
+                        📲 Comprar por WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= PRODUCTO 2 (VESTIDOS) ================= -->
+            <div class="product-card" data-category="vestidos" data-name="Vestido Noir ZUVAA" data-price="52">
+                <span class="badge-tag">Nuevo</span>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=700&q=80" alt="Vestido Noir ZUVAA">
+                </div>
+                <div class="product-body">
+                    <span class="product-cat-label">Vestidos</span>
+                    <div class="product-header-row">
+                        <h3 class="product-title">Vestido Noir ZUVAA</h3>
+                        <span class="product-price">$52.00</span>
+                    </div>
+
+                    <div class="options-grid">
+                        <div class="option-group">
+                            <label>Talla:</label>
+                            <select class="select-size">
+                                <option value="XS">Talla XS</option>
+                                <option value="S">Talla S</option>
+                                <option value="M" selected>Talla M</option>
+                                <option value="L">Talla L</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Cantidad:</label>
+                            <input type="number" class="select-qty" value="1" min="1" max="20">
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Color disponible:</label>
+                            <select class="select-color">
+                                <option value="Negro Profundo">Negro Profundo</option>
+                                <option value="Vino Tinto">Vino Tinto</option>
+                                <option value="Beige Perla">Beige Perla</option>
+                            </select>
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Ciudad de Envío:</label>
+                            <select class="select-city">
+                                <option value="" disabled selected>Selecciona tu ciudad...</option>
+                                <option value="Barquisimeto">Barquisimeto</option>
+                                <option value="Quíbor">Quíbor</option>
+                                <option value="Cabudare">Cabudare</option>
+                                <option value="Carora">Carora</option>
+                                <option value="Caracas">Caracas</option>
+                                <option value="Valencia">Valencia</option>
+                                <option value="Maracay">Maracay</option>
+                                <option value="Maracaibo">Maracaibo</option>
+                                <option value="Otra ciudad (Especificar en chat)">Otra ciudad</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn-whatsapp" onclick="comprarPorWhatsApp(this)">
+                        📲 Comprar por WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= PRODUCTO 3 (BLUSAS) ================= -->
+            <div class="product-card" data-category="blusas" data-name="Blusa Lazo Imperial" data-price="29">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=700&q=80" alt="Blusa Lazo Imperial">
+                </div>
+                <div class="product-body">
+                    <span class="product-cat-label">Blusas & Tops</span>
+                    <div class="product-header-row">
+                        <h3 class="product-title">Blusa Lazo Imperial</h3>
+                        <span class="product-price">$29.00</span>
+                    </div>
+
+                    <div class="options-grid">
+                        <div class="option-group">
+                            <label>Talla:</label>
+                            <select class="select-size">
+                                <option value="S">Talla S</option>
+                                <option value="M" selected>Talla M</option>
+                                <option value="L">Talla L</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Cantidad:</label>
+                            <input type="number" class="select-qty" value="1" min="1" max="20">
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Color disponible:</label>
+                            <select class="select-color">
+                                <option value="Blanco Marfil">Blanco Marfil</option>
+                                <option value="Verde Menta Suave">Verde Menta Suave</option>
+                                <option value="Rosa Empolvado">Rosa Empolvado</option>
+                            </select>
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Ciudad de Envío:</label>
+                            <select class="select-city">
+                                <option value="" disabled selected>Selecciona tu ciudad...</option>
+                                <option value="Barquisimeto">Barquisimeto</option>
+                                <option value="Quíbor">Quíbor</option>
+                                <option value="Cabudare">Cabudare</option>
+                                <option value="Carora">Carora</option>
+                                <option value="Caracas">Caracas</option>
+                                <option value="Valencia">Valencia</option>
+                                <option value="Maracay">Maracay</option>
+                                <option value="Maracaibo">Maracaibo</option>
+                                <option value="Otra ciudad (Especificar en chat)">Otra ciudad</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn-whatsapp" onclick="comprarPorWhatsApp(this)">
+                        📲 Comprar por WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= PRODUCTO 4 (CONJUNTOS) ================= -->
+            <div class="product-card" data-category="conjuntos" data-name="Conjunto Lino Crema" data-price="38">
+                <span class="badge-tag gold">Tendencia</span>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1551163943-3f6a855d1153?auto=format&fit=crop&w=700&q=80" alt="Conjunto Lino Crema">
+                </div>
+                <div class="product-body">
+                    <span class="product-cat-label">Conjuntos</span>
+                    <div class="product-header-row">
+                        <h3 class="product-title">Conjunto Lino Crema</h3>
+                        <span class="product-price">$38.00</span>
+                    </div>
+
+                    <div class="options-grid">
+                        <div class="option-group">
+                            <label>Talla:</label>
+                            <select class="select-size">
+                                <option value="S">Talla S</option>
+                                <option value="M" selected>Talla M</option>
+                                <option value="L">Talla L</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Cantidad:</label>
+                            <input type="number" class="select-qty" value="1" min="1" max="20">
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Color disponible:</label>
+                            <select class="select-color">
+                                <option value="Crema Natural">Crema Natural</option>
+                                <option value="Arena Dorado">Arena Dorado</option>
+                                <option value="Negro Clásico">Negro Clásico</option>
+                            </select>
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Ciudad de Envío:</label>
+                            <select class="select-city">
+                                <option value="" disabled selected>Selecciona tu ciudad...</option>
+                                <option value="Barquisimeto">Barquisimeto</option>
+                                <option value="Quíbor">Quíbor</option>
+                                <option value="Cabudare">Cabudare</option>
+                                <option value="Carora">Carora</option>
+                                <option value="Caracas">Caracas</option>
+                                <option value="Valencia">Valencia</option>
+                                <option value="Maracay">Maracay</option>
+                                <option value="Maracaibo">Maracaibo</option>
+                                <option value="Otra ciudad (Especificar en chat)">Otra ciudad</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn-whatsapp" onclick="comprarPorWhatsApp(this)">
+                        📲 Comprar por WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= PRODUCTO 5 (PANTALONES) ================= -->
+            <div class="product-card" data-category="pantalones" data-name="Pantalón Palazzo Imperial" data-price="34">
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?auto=format&fit=crop&w=700&q=80" alt="Pantalón Palazzo">
+                </div>
+                <div class="product-body">
+                    <span class="product-cat-label">Pantalones</span>
+                    <div class="product-header-row">
+                        <h3 class="product-title">Pantalón Palazzo Imperial</h3>
+                        <span class="product-price">$34.00</span>
+                    </div>
+
+                    <div class="options-grid">
+                        <div class="option-group">
+                            <label>Talla:</label>
+                            <select class="select-size">
+                                <option value="S">Talla S</option>
+                                <option value="M" selected>Talla M</option>
+                                <option value="L">Talla L</option>
+                                <option value="XL">Talla XL</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Cantidad:</label>
+                            <input type="number" class="select-qty" value="1" min="1" max="20">
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Color disponible:</label>
+                            <select class="select-color">
+                                <option value="Camel Dorado">Camel Dorado</option>
+                                <option value="Negro">Negro</option>
+                                <option value="Blanco Hueso">Blanco Hueso</option>
+                            </select>
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Ciudad de Envío:</label>
+                            <select class="select-city">
+                                <option value="" disabled selected>Selecciona tu ciudad...</option>
+                                <option value="Barquisimeto">Barquisimeto</option>
+                                <option value="Quíbor">Quíbor</option>
+                                <option value="Cabudare">Cabudare</option>
+                                <option value="Carora">Carora</option>
+                                <option value="Caracas">Caracas</option>
+                                <option value="Valencia">Valencia</option>
+                                <option value="Maracay">Maracay</option>
+                                <option value="Maracaibo">Maracaibo</option>
+                                <option value="Otra ciudad (Especificar en chat)">Otra ciudad</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn-whatsapp" onclick="comprarPorWhatsApp(this)">
+                        📲 Comprar por WhatsApp
+                    </button>
+                </div>
+            </div>
+
+            <!-- ================= PRODUCTO 6 (BLUSAS) ================= -->
+            <div class="product-card" data-category="blusas" data-name="Top Kors Satinado" data-price="24">
+                <span class="badge-tag">Nuevo</span>
+                <div class="product-img">
+                    <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=700&q=80" alt="Top Satinado">
+                </div>
+                <div class="product-body">
+                    <span class="product-cat-label">Blusas & Tops</span>
+                    <div class="product-header-row">
+                        <h3 class="product-title">Top Kors Satinado</h3>
+                        <span class="product-price">$24.00</span>
+                    </div>
+
+                    <div class="options-grid">
+                        <div class="option-group">
+                            <label>Talla:</label>
+                            <select class="select-size">
+                                <option value="XS">Talla XS</option>
+                                <option value="S" selected>Talla S</option>
+                                <option value="M">Talla M</option>
+                            </select>
+                        </div>
+                        <div class="option-group">
+                            <label>Cantidad:</label>
+                            <input type="number" class="select-qty" value="1" min="1" max="20">
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Color disponible:</label>
+                            <select class="select-color">
+                                <option value="Champagne">Champagne</option>
+                                <option value="Negro">Negro</option>
+                            </select>
+                        </div>
+                        <div class="option-group full-width">
+                            <label>Ciudad de Envío:</label>
+                            <select class="select-city">
+                                <option value="" disabled selected>Selecciona tu ciudad...</option>
+                                <option value="Barquisimeto">Barquisimeto</option>
+                                <option value="Quíbor">Quíbor</option>
+                                <option value="Cabudare">Cabudare</option>
+                                <option value="Carora">Carora</option>
+                                <option value="Caracas">Caracas</option>
+                                <option value="Valencia">Valencia</option>
+                                <option value="Maracay">Maracay</option>
+                                <option value="Maracaibo">Maracaibo</option>
+                                <option value="Otra ciudad (Especificar en chat)">Otra ciudad</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button class="btn-whatsapp" onclick="comprarPorWhatsApp(this)">
+                        📲 Comprar por WhatsApp
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p><span>ZUVAA</span> — Ilumina tu estilo</p>
+        <p style="margin-top: 6px; color: #8c857b;">&copy; 2026 Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- LÓGICA DE FILTRADO Y ENVÍO A WHATSAPP -->
+    <script>
+        // =========================================================================
+        // 1. COLOCA AQUÍ TU NÚMERO DE WHATSAPP (Con código de país, sin el signo +)
+        // Ejemplo Venezuela: "584121234567" | Ejemplo Colombia: "573001234567"
+        // =========================================================================
+        const TELEFONO_WHATSAPP = "584120000000";
+
+        // Función para filtrar prendas por categoría
+        function filtrarCategoria(categoria, botonPresionado) {
+            // Quitar clase activa a todos los botones y dársela al presionado
+            const botones = document.querySelectorAll('.cat-btn');
+            botones.forEach(btn => btn.classList.remove('active'));
+            botonPresionado.classList.add('active');
+
+            // Mostrar u ocultar productos según la categoría
+            const productos = document.querySelectorAll('.product-card');
+            productos.forEach(producto => {
+                const catProducto = producto.getAttribute('data-category');
+                if (categoria === 'todos' || catProducto === categoria) {
+                    producto.style.display = 'flex';
+                } else {
+                    producto.style.display = 'none';
+                }
+            });
+        }
+
+        // Función que arma el pedido y abre WhatsApp
+        function comprarPorWhatsApp(boton) {
+            // Buscamos la tarjeta del producto donde se hizo clic
+            const card = boton.closest('.product-card');
+
+            // Extraemos los datos del producto y las opciones elegidas por el cliente
+            const nombrePrenda = card.getAttribute('data-name');
+            const precioUnitario = parseFloat(card.getAttribute('data-price'));
+            const talla = card.querySelector('.select-size').value;
+            const color = card.querySelector('.select-color').value;
+            const cantidad = parseInt(card.querySelector('.select-qty').value);
+            const ciudad = card.querySelector('.select-city').value;
+
+            // Validamos que haya elegido una cantidad válida y una ciudad
+            if (isNaN(cantidad) || cantidad < 1) {
+                alert("Por favor, ingresa una cantidad válida (mínimo 1 prenda).");
+                return;
+            }
+
+            if (!ciudad) {
+                alert("📍 Por favor, selecciona tu Ciudad de Envío antes de continuar.");
+                card.querySelector('.select-city').focus();
+                return;
+            }
+
+            // Calculamos el total
+            const total = (precioUnitario * cantidad).toFixed(2);
+
+            // Creamos el mensaje que llegará a tu WhatsApp
+            const mensaje = 
+`¡Hola *ZUVAA*! ✨ Quiero realizar el siguiente pedido:
+
+👗 *Prenda:* ${nombrePrenda}
+🎨 *Color:* ${color}
+📏 *Talla:* ${talla}
+🛍️ *Cantidad:* ${cantidad} unidad(es)
+💵 *Total estimado:* $${total}
+📍 *Ciudad de envío:* ${ciudad}
+
+Quedo atento(a) para los datos de pago y envío. ¡Gracias!`;
+
+            // Codificamos el texto para URL y abrimos WhatsApp
+            const urlWhatsApp = `https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+            window.open(urlWhatsApp, '_blank');
+        }
+    </script>
+
+</body>
+</html>
