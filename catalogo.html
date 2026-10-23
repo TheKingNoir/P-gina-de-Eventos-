@@ -35,6 +35,7 @@ header { background:var(--black); padding:14px 6%; display:flex; justify-content
 .opt { display:flex; flex-direction:column; font-size:0.7rem; font-weight:600; }
 .opt.full { grid-column:span 2; }
 .opt select, .opt input { margin-top:3px; padding:7px; border:1px solid var(--gold); border-radius:5px; background:#fff; font-family:inherit; font-size:0.78rem; outline:none; }
+.input-manual { display: none; margin-top: 5px; }
 .btn-wa { margin-top:auto; background:var(--black); color:var(--gold-l); border:1px solid var(--gold); padding:12px; border-radius:6px; font-weight:600; font-size:0.78rem; text-transform:uppercase; cursor:pointer; transition:0.3s; }
 .btn-wa:hover { background:var(--gold); color:var(--black); }
 footer { background:var(--black); color:var(--cream); text-align:center; padding:25px; border-top:2px solid var(--gold); font-size:0.8rem; }
@@ -122,7 +123,6 @@ const contenedor = document.getElementById("product-list");
 
 // Generar las tarjetas de productos dinámicamente
 productos.forEach((p, index) => {
-    // Generar opciones de Estados de Venezuela
     let opcionesEstados = `<option value="" disabled selected>Selecciona un estado...</option>`;
     for (let estado in venezuelaData) {
         opcionesEstados += `<option value="${estado}">${estado}</option>`;
@@ -153,9 +153,10 @@ productos.forEach((p, index) => {
                     </select>
                 </div>
                 <div class="opt full"><label>Ciudad / Municipio:</label>
-                    <select class="ct" id="ciudad-${index}">
+                    <select class="ct" id="ciudad-${index}" onchange="verificarOtraCiudad(this, ${index})">
                         <option value="" disabled selected>Primero selecciona un estado...</option>
                     </select>
+                    <input type="text" class="input-manual" id="input-manual-${index}" placeholder="Escribe el nombre de tu ciudad...">
                 </div>
             </div>
             <button class="btn-wa" onclick="comprar(this, ${index})">📲 Comprar por WhatsApp</button>
@@ -163,19 +164,38 @@ productos.forEach((p, index) => {
     </div>`;
 });
 
-// Función para actualizar dinámicamente las ciudades según el estado seleccionado
+// Función para actualizar las ciudades según el estado y añadir la opción manual
 function actualizarCiudades(selectEstado, index) {
     const estadoSeleccionado = selectEstado.value;
     const selectCiudad = document.getElementById(`ciudad-${index}`);
+    const inputManual = document.getElementById(`input-manual-${index}`);
     
+    // Ocultar input manual al cambiar de estado
+    inputManual.style.display = "none";
+    inputManual.value = "";
+
     let ciudades = venezuelaData[estadoSeleccionado] || [];
     
     let opcionesCiudades = `<option value="" disabled selected>Selecciona tu ciudad...</option>`;
     ciudades.forEach(ciudad => {
         opcionesCiudades += `<option value="${ciudad}">${ciudad}</option>`;
     });
+    // Agregamos la opción para escribir manualmente
+    opcionesCiudades += `<option value="OTRA">Otra ciudad (Escribir manualmente)</option>`;
     
     selectCiudad.innerHTML = opcionesCiudades;
+}
+
+// Función para mostrar el campo de texto si eligen "Otra ciudad"
+function verificarOtraCiudad(selectCiudad, index) {
+    const inputManual = document.getElementById(`input-manual-${index}`);
+    if (selectCiudad.value === "OTRA") {
+        inputManual.style.display = "block";
+        inputManual.focus();
+    } else {
+        inputManual.style.display = "none";
+        inputManual.value = "";
+    }
 }
 
 // Función de filtrado por categoría
@@ -196,7 +216,10 @@ function comprar(btn, index) {
     const cant = parseInt(c.querySelector('.qt').value) || 1;
     const color = c.querySelector('.cl').value;
     const estado = c.querySelector('.st').value;
-    const ciudad = c.querySelector('.ct').value;
+    const selectCiudad = c.querySelector('.ct');
+    const inputManual = document.getElementById(`input-manual-${index}`);
+    
+    let ciudadFinal = "";
 
     if (!estado) {
         alert("📍 Por favor selecciona tu Estado de Envío.");
@@ -204,14 +227,25 @@ function comprar(btn, index) {
         return;
     }
 
-    if (!ciudad) {
+    if (!selectCiudad.value) {
         alert("📍 Por favor selecciona tu Ciudad / Municipio.");
-        c.querySelector('.ct').focus();
+        selectCiudad.focus();
         return;
     }
 
+    if (selectCiudad.value === "OTRA") {
+        if (!inputManual.value.trim()) {
+            alert("✍️ Por favor escribe el nombre de tu ciudad en el campo de texto.");
+            inputManual.focus();
+            return;
+        }
+        ciudadFinal = inputManual.value.trim() + " (Escrita manual)";
+    } else {
+        ciudadFinal = selectCiudad.value;
+    }
+
     const total = (precio * cant).toFixed(2);
-    const msj = `¡Hola *ZUVAA*! ✨ Quiero realizar este pedido:\n\n👗 *Prenda:* ${nombre}\n🎨 *Color:* ${color}\n📏 *Talla:* ${talla}\n🛍️ *Cantidad:* ${cant}\n💵 *Total:* $${total}\n📍 *Estado:* ${estado}\n🏙️ *Ciudad:* ${ciudad}\n\nQuedo atento(a) para los datos de pago y envío. ¡Gracias!`;
+    const msj = `¡Hola *ZUVAA*! ✨ Quiero realizar este pedido:\n\n👗 *Prenda:* ${nombre}\n🎨 *Color:* ${color}\n📏 *Talla:* ${talla}\n🛍️ *Cantidad:* ${cant}\n💵 *Total:* $${total}\n📍 *Estado:* ${estado}\n🏙️ *Ciudad:* ${ciudadFinal}\n\nQuedo atento(a) para los datos de pago y envío. ¡Gracias!`;
     
     window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msj)}`, '_blank');
 }
