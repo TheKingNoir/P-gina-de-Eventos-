@@ -79,7 +79,7 @@ footer { background:var(--black); color:var(--cream); text-align:center; padding
 // ==========================================
 // CAMBIA AQUÍ TU NÚMERO DE WHATSAPP (Sin el +)
 // ==========================================
-const WHATSAPP = "584120000000";
+const WHATSAPP = "584125891414";
 
 // Base de datos de productos
 const productos = [
@@ -247,7 +247,7 @@ function comprar(btn, index) {
     const total = (precio * cant).toFixed(2);
     const msj = `¡Hola *ZUVAA*! ✨ Quiero realizar este pedido:\n\n👗 *Prenda:* ${nombre}\n🎨 *Color:* ${color}\n📏 *Talla:* ${talla}\n🛍️ *Cantidad:* ${cant}\n💵 *Total:* $${total}\n📍 *Estado:* ${estado}\n🏙️ *Ciudad:* ${ciudadFinal}\n\nQuedo atento(a) para los datos de pago y envío. ¡Gracias!`;
     
-    window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msj)}`, '_blank');
+    window.open(`https://wa.me/${+584125891414}?text=${encodeURIComponent(msj)}`, '_blank');
 }
 </script>
 </body>
