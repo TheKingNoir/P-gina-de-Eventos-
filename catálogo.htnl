@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo Oficial | ZUVAA - Ilumina tu estilo</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Paleta oficial extraída del logo ZUVAA */
+            --bg-cream: #F2EAE1;
+            --bg-light: #FAF6F2;
+            --black-deep: #0D0C0B;
+            --gold-primary: #C5A059;
+            --gold-light: #E2C792;
+            --sage-green: #A3B5A6;
+            --sage-dark: #3f5243;
+            --text-dark: #1E1C1A;
+            --text-muted: #6E665E;
+            --whatsapp-green: #1E3F2B; /* Verde elegante oscuro que armoniza con el dorado */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.5;
+        }
+
+        /* --- BARRA SUPERIOR --- */
+        .top-bar {
+            background-color: var(--sage-green);
+            color: var(--black-deep);
+            text-align: center;
+            padding: 8px 15px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--black-deep);
+            padding: 14px 6%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--gold-primary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--gold-primary);
+            box-shadow: 0 0 12px rgba(197, 160, 89, 0.4);
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-title {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold-primary);
+            font-size: 1.8rem;
+            letter-spacing: 5px;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .brand-slogan {
+            font-family: 'Great Vibes', cursive;
+            color: var(--gold-light);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--bg-cream);
+            text-decoration: none;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold-primary);
+        }
+
+        /* --- SECCIÓN PRINCIPAL DEL CATÁLOGO (HERO) --- */
+        .catalog-hero {
+            background: linear-gradient(to right, rgba(13, 12, 11, 0.92), rgba(13, 12, 11, 0.7)), 
+                        url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1400&q=80') center/cover;
+            padding: 65px 8%;
+            text-align: center;
+            color: var(--bg-cream);
+            border-bottom: 3px solid var(--gold-primary);
+        }
+
+        .catalog-hero span.badge {
+            background-color: rgba(197, 160, 89, 0.2);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-light);
+            padding: 5px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .catalog-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.4rem;
+            color: var(--gold-light);
+            margin: 12px 0 5px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .catalog-hero p.cursive {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.2rem;
+            color: var(--sage-green);
+            margin-bottom: 12px;
+        }
+
+        .catalog-hero p.desc {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 0.9rem;
+            color: #d8d0c5;
+            font-weight: 300;
+        }
+
+        /* --- BARRA DE CATEGORÍAS --- */
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 35px 6% 15px;
+            flex-wrap: wrap;
+        }
+
+        .cat-btn {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            border: 1px solid rgba(197, 160, 89, 0.45);
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .cat-btn:hover, .cat-btn.active {
+            background-color: var(--black-deep);
+            color: var(--gold-light);
+            border-color: var(--gold-primary);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        /* --- GRILLA DE PRODUCTOS --- */
+        .catalog-container {
+            padding: 30px 6% 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        /* --- TARJETA DE PRODUCTO CON OPCIONES --- */
+        .product-card {
+            background-color: var(--bg-light);
+            border: 1px solid rgba(197, 160, 89, 0.35);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .badge-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: var(--sage-green);
+            color: var(--black-deep);
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 4px 11px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .badge-tag.gold {
+            background-color: var(--gold-primary);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 330px;
+            overflow: hidden;
+            background-color: #e6dfd5;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img img {
+            transform: scale(1.05);
+        }
+
+        .product-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-cat-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+        }
+
+        .product-header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin: 4px 0 14px;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .product-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.45rem;
+            color: var(--black-deep);
+            font-weight: 700;
+        }
+
+        .product-price {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--gold-primary);
+        }
+
+        /* --- FORMULARIO DE OPCIONES DENTRO DE LA TARJETA --- */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .option-group {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .option-group.full-width {
+            grid-column: span 2;
+        }
+
+        .option-group label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .option-group select,
+        .option-group input {
+  
