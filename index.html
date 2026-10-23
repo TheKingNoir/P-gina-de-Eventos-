@@ -244,6 +244,7 @@
             border: 1px solid var(--gold-primary);
             transition: all 0.35s ease;
             box-shadow: 0 8px 20px rgba(13, 12, 11, 0.15);
+            display: inline-block;
         }
 
         .btn-primary:hover {
@@ -263,6 +264,7 @@
             font-weight: 500;
             border: 1px solid var(--black-deep);
             transition: all 0.35s ease;
+            display: inline-block;
         }
 
         .btn-secondary:hover {
@@ -326,7 +328,7 @@
             color: var(--text-muted);
         }
 
-        /* --- CATÁLOGO DE PRODUCTOS --- */
+        /* --- CATÁLOGO DE PRODUCTOS (VISTA PREVIA) --- */
         .catalog {
             padding: 80px 8%;
         }
@@ -356,33 +358,6 @@
             height: 2px;
             background-color: var(--gold-primary);
             margin: 12px auto 0;
-        }
-
-        /* Filtros de categoría */
-        .filters {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background: transparent;
-            border: 1px solid rgba(197, 160, 89, 0.5);
-            padding: 8px 22px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            color: var(--text-dark);
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active, .filter-btn:hover {
-            background-color: var(--black-deep);
-            color: var(--gold-light);
-            border-color: var(--gold-primary);
         }
 
         /* Grilla de Productos */
@@ -491,6 +466,8 @@
             letter-spacing: 1.5px;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
         }
 
         .add-to-cart:hover {
@@ -498,6 +475,11 @@
             border-color: var(--gold-primary);
             color: var(--black-deep);
             font-weight: 600;
+        }
+
+        .catalog-cta {
+            text-align: center;
+            margin-top: 50px;
         }
 
         /* --- BANNER DESTACADO CON LOGO --- */
@@ -647,8 +629,7 @@
 
     <!-- Navegación -->
     <header>
-        <a href="#" class="brand-container">
-            <!-- REEMPLAZA "logo.jpg" CON EL NOMBRE DE TU ARCHIVO DE IMAGEN -->
+        <a href="index.html" class="brand-container">
             <img src="logo.jpg" alt="Logo ZUVAA" class="logo-img">
             <div class="brand-text">
                 <span class="brand-title">ZUVAA</span>
@@ -658,14 +639,15 @@
 
         <ul class="nav-links">
             <li><a href="#inicio">Inicio</a></li>
-            <li><a href="#coleccion">Colección</a></li>
+            <!-- Enlace conectado a catalogo.html -->
+            <li><a href="catalogo.html">Catálogo</a></li>
             <li><a href="#nosotros">Esencia</a></li>
             <li><a href="#contacto">Contacto</a></li>
         </ul>
 
         <div class="header-actions">
-            <button class="cart-btn" onclick="verCarrito()">
-                🛍️ Carrito (<span id="cart-count">0</span>)
+            <button class="cart-btn" onclick="window.location.href='catalogo.html'">
+                🛍️ Ir a la Tienda
             </button>
         </div>
     </header>
@@ -678,14 +660,14 @@
             <span class="hero-cursive">Ilumina tu estilo</span>
             <p>Descubre prendas diseñadas para realzar tu esencia con cortes delicados, texturas suaves y el toque dorado que caracteriza a <strong>ZUVAA</strong>.</p>
             <div class="btn-group">
-                <a href="#coleccion" class="btn-primary">Ver Catálogo</a>
+                <!-- BOTÓN ACTUALIZADO: Lleva directamente a catalogo.html -->
+                <a href="catalogo.html" class="btn-primary">Ver Catálogo</a>
                 <a href="#nosotros" class="btn-secondary">Nuestra Esencia</a>
             </div>
         </div>
 
         <div class="hero-visual">
             <div class="hero-frame">
-                <!-- Imagen de moda referencial que combina con los tonos de ZUVAA -->
                 <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="Moda ZUVAA">
             </div>
         </div>
@@ -707,19 +689,12 @@
         </div>
     </section>
 
-    <!-- Catálogo de Productos -->
+    <!-- Vista Previa de Productos Destacados -->
     <section class="catalog" id="coleccion">
         <div class="section-header">
-            <h2>Nuestra Colección</h2>
+            <h2>Destacados de Temporada</h2>
             <p class="subtitle">Prendas con luz propia</p>
             <div class="divider"></div>
-        </div>
-
-        <div class="filters">
-            <button class="filter-btn active">Todo</button>
-            <button class="filter-btn">Vestidos</button>
-            <button class="filter-btn">Blusas & Tops</button>
-            <button class="filter-btn">Conjuntos</button>
         </div>
 
         <div class="product-grid">
@@ -731,4 +706,109 @@
                 </div>
                 <div class="product-info">
                     <div>
-                        <p class="product-category">Vestidos
+                        <p class="product-category">Vestidos</p>
+                        <h3 class="product-title">Vestido Gala Champagne</h3>
+                        <p class="product-price">$45.00</p>
+                    </div>
+                    <a href="catalogo.html" class="add-to-cart">Elegir Talla y Color</a>
+                </div>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="product-card">
+                <span class="badge-tag gold">Más Vendido</span>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=700&q=80" alt="Vestido Negro">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <p class="product-category">Vestidos</p>
+                        <h3 class="product-title">Vestido Noir ZUVAA</h3>
+                        <p class="product-price">$52.00</p>
+                    </div>
+                    <a href="catalogo.html" class="add-to-cart">Elegir Talla y Color</a>
+                </div>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="product-card">
+                <span class="badge-tag">Tendencia</span>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1551163943-3f6a855d1153?auto=format&fit=crop&w=700&q=80" alt="Conjunto Beige">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <p class="product-category">Conjuntos</p>
+                        <h3 class="product-title">Conjunto Lino Crema</h3>
+                        <p class="product-price">$38.00</p>
+                    </div>
+                    <a href="catalogo.html" class="add-to-cart">Elegir Talla y Color</a>
+                </div>
+            </div>
+
+            <!-- Producto 4 -->
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=700&q=80" alt="Blusa Seda">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <p class="product-category">Blusas & Tops</p>
+                        <h3 class="product-title">Blusa Lazo Imperial</h3>
+                        <p class="product-price">$29.00</p>
+                    </div>
+                    <a href="catalogo.html" class="add-to-cart">Elegir Talla y Color</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="catalog-cta">
+            <a href="catalogo.html" class="btn-primary">Ver Catálogo Completo</a>
+        </div>
+    </section>
+
+    <!-- Sección Destacada de Marca -->
+    <section class="brand-highlight" id="nosotros">
+        <div class="highlight-text">
+            <h3>El sello de ZUVAA</h3>
+            <p>Inspirados en la delicadeza y el brillo propio de cada persona, creamos una tienda donde la comodidad visual y el buen gusto se encuentran. Cada prenda está pensada para que brilles en cualquier ocasión.</p>
+            <a href="catalogo.html" class="btn-primary">Explorar Temporada</a>
+        </div>
+        <img src="logo.jpg" alt="Sello ZUVAA" class="highlight-logo">
+    </section>
+
+    <!-- Pie de página -->
+    <footer id="contacto">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>ZUVAA</h4>
+                <p>Ilumina tu estilo con nuestras colecciones exclusivas de ropa online.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Enlaces Rápidos</h4>
+                <a href="#inicio">Inicio</a>
+                <a href="catalogo.html">Catálogo Completo</a>
+                <a href="#nosotros">Sobre ZUVAA</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <a href="catalogo.html">📍 Envíos a todo el país</a>
+                <a href="catalogo.html">💬 Pedidos por WhatsApp</a>
+                <a href="#">📸 Instagram: @zuvaa.oficial</a>
+            </div>
+            <div class="footer-col">
+                <h4>Club ZUVAA</h4>
+                <p>Recibe descuentos exclusivos y lanzamientos antes que nadie.</p>
+                <div class="newsletter-input">
+                    <input type="email" placeholder="Tu correo electrónico">
+                    <button>Unirme</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 ZUVAA - Ilumina tu estilo. Todos los derechos reservados.
+        </div>
+    </footer>
+
+</body>
+</html>
