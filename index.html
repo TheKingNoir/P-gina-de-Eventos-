@@ -3,302 +3,732 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Baile de las Sombras...</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=UnifrakturMaguntia&family=Special+Elite&display=swap" rel="stylesheet">
+    <title>ZUVAA | Ilumina tu estilo</title>
+    <!-- Google Fonts: Tipografías idénticas al estilo del logo -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            /* Paleta extraída del logo de ZUVAA */
+            --bg-cream: #F2EAE1;        /* Fondo exterior del logo */
+            --bg-light: #FAF6F2;        /* Crema más claro para tarjetas */
+            --black-deep: #0D0C0B;      /* Negro profundo del círculo central */
+            --gold-primary: #C5A059;    /* Dorado principal */
+            --gold-light: #E2C792;      /* Dorado iluminado del lazo */
+            --sage-green: #A3B5A6;      /* Verde salvia suave del lazo */
+            --text-dark: #1E1C1A;       /* Texto principal cómodo a la vista */
+            --text-muted: #6E665E;      /* Texto secundario */
+        }
+
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: #050505;
-            color: #b0b0b0;
-            font-family: 'Special Elite', cursive;
-            background-image: radial-gradient(circle, #1a0000 0%, #050505 80%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
             overflow-x: hidden;
-            padding: 20px;
         }
 
-        .invitation-container {
-            background: #0a0a0a;
-            border: 2px solid #3a0000;
-            box-shadow: 0 0 30px rgba(139, 0, 0, 0.4), inset 0 0 50px rgba(0, 0, 0, 0.9);
-            max-width: 650px;
-            width: 100%;
-            padding: 40px;
-            position: relative;
+        /* --- BARRA DE ANUNCIOS SUPERIOR --- */
+        .top-bar {
+            background-color: var(--sage-green);
+            color: var(--black-deep);
             text-align: center;
-        }
-
-        .invitation-container::before, .invitation-container::after {
-            content: '❦';
-            position: absolute;
-            color: #5c0000;
-            font-size: 24px;
-        }
-        .invitation-container::before { top: 10px; left: 15px; }
-        .invitation-container::after { top: 10px; right: 15px; }
-
-        h1 {
-            font-family: 'UnifrakturMaguntia', cursive;
-            color: #8b0000;
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px #000;
-            letter-spacing: 2px;
-        }
-
-        h2 {
-            font-family: 'Cinzel Decorative', serif;
-            color: #d3d3d3;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1px;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            border-bottom: 1px solid #3a0000;
-            border-top: 1px solid #3a0000;
-            padding: 10px 0;
         }
 
-        .story-text {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: #999;
-            margin-bottom: 30px;
-            text-align: justify;
-            padding: 0 10px;
+        /* --- NAVEGACIÓN (HEADER) --- */
+        header {
+            background-color: var(--black-deep);
+            padding: 15px 6%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--gold-primary);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
         }
 
-        .story-text span {
-            color: #cf6679;
-            font-weight: bold;
+        .brand-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
         }
 
-        form {
+        .logo-img {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--gold-primary);
+            box-shadow: 0 0 12px rgba(197, 160, 89, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        .brand-text {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            text-align: left;
-            margin-top: 20px;
-            border-top: 1px dashed #2a0000;
-            padding-top: 25px;
         }
 
-        label {
-            font-size: 0.9rem;
-            color: #b5b5b5;
+        .brand-title {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold-primary);
+            font-size: 1.9rem;
+            letter-spacing: 5px;
+            font-weight: 600;
+            line-height: 1;
+        }
+
+        .brand-slogan {
+            font-family: 'Great Vibes', cursive;
+            color: var(--gold-light);
+            font-size: 1.15rem;
             letter-spacing: 1px;
-            margin-bottom: 5px;
-            display: block;
+            margin-top: 2px;
         }
 
-        input[type="text"], select, textarea {
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--bg-cream);
+            text-decoration: none;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--gold-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .nav-links a:hover::after {
             width: 100%;
-            background-color: #121212;
-            border: 1px solid #3a0000;
-            color: #e0e0e0;
-            padding: 12px;
-            font-family: 'Special Elite', cursive;
-            font-size: 0.95rem;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .cart-btn {
+            background: transparent;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-light);
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
         }
 
-        input[type="text"]:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #8b0000;
-            box-shadow: 0 0 10px rgba(139, 0, 0, 0.6);
-            background-color: #1a0505;
+        .cart-btn:hover {
+            background-color: var(--gold-primary);
+            color: var(--black-deep);
+            font-weight: 500;
         }
 
-        #custom-costume-container {
-            display: none;
-        }
-
-        .checkbox-group {
+        /* --- SECCIÓN PRINCIPAL (HERO) --- */
+        .hero {
             display: flex;
             align-items: center;
-            gap: 10px;
-            cursor: pointer;
+            justify-content: space-between;
+            padding: 70px 8%;
+            min-height: 82vh;
+            background: radial-gradient(circle at 80% 50%, #fdfbf9 0%, var(--bg-cream) 70%);
+            gap: 40px;
         }
 
-        input[type="checkbox"] {
-            accent-color: #8b0000;
-            width: 18px;
-            height: 18px;
+        .hero-content {
+            flex: 1;
+            max-width: 580px;
         }
 
-        button {
-            background-color: #3a0000;
-            color: #e0e0e0;
-            border: 1px solid #8b0000;
-            padding: 15px;
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 1rem;
-            cursor: pointer;
+        .hero-badge {
+            display: inline-block;
+            background-color: rgba(163, 181, 166, 0.35);
+            color: #3f5243;
+            border: 1px solid var(--sage-green);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
             letter-spacing: 2px;
-            transition: all 0.4s ease;
-            margin-top: 10px;
             text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
 
-        button:hover {
-            background-color: #8b0000;
-            color: #ffffff;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            color: var(--black-deep);
+            line-height: 1.08;
+            font-weight: 600;
+            margin-bottom: 10px;
         }
 
-        #response-message {
-            display: none;
-            margin-top: 25px;
-            font-size: 1.2rem;
-            color: #cf6679;
-            font-family: 'Cinzel Decorative', serif;
-            text-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
-            animation: fadeIn 1.5s ease;
+        .hero-cursive {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: var(--gold-primary);
+            display: block;
+            margin-bottom: 20px;
+            font-weight: 400;
+            text-shadow: 0 2px 10px rgba(197, 160, 89, 0.2);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 35px;
+            font-weight: 400;
         }
 
-        .event-details {
-            margin: 20px 0;
-            font-size: 0.9rem;
-            color: #8b0000;
-            font-weight: bold;
-            line-height: 1.6;
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background-color: var(--black-deep);
+            color: var(--gold-light);
+            padding: 15px 34px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid var(--gold-primary);
+            transition: all 0.35s ease;
+            box-shadow: 0 8px 20px rgba(13, 12, 11, 0.15);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--gold-primary);
+            color: var(--black-deep);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--black-deep);
+            padding: 15px 30px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid var(--black-deep);
+            transition: all 0.35s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--black-deep);
+            color: var(--bg-cream);
+        }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Marco elegante inspirado en el círculo del logo */
+        .hero-frame {
+            width: 390px;
+            height: 490px;
+            border-radius: 200px 200px 20px 20px;
+            overflow: hidden;
+            border: 3px solid var(--gold-primary);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15), 0 0 25px rgba(197, 160, 89, 0.3);
+            position: relative;
+            background-color: var(--black-deep);
+        }
+
+        .hero-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.92;
+            transition: transform 0.7s ease;
+        }
+
+        .hero-frame:hover img {
+            transform: scale(1.05);
+        }
+
+        /* --- SECCIÓN DE BENEFICIOS --- */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 40px 8%;
+            background-color: var(--bg-light);
+            border-top: 1px solid rgba(197, 160, 89, 0.25);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+            text-align: center;
+        }
+
+        .feature-item h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--black-deep);
+            margin-bottom: 5px;
+        }
+
+        .feature-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* --- CATÁLOGO DE PRODUCTOS --- */
+        .catalog {
+            padding: 80px 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            color: var(--black-deep);
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .section-header .subtitle {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: var(--gold-primary);
+            margin-top: -8px;
+        }
+
+        .divider {
+            width: 70px;
+            height: 2px;
+            background-color: var(--gold-primary);
+            margin: 12px auto 0;
+        }
+
+        /* Filtros de categoría */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid rgba(197, 160, 89, 0.5);
+            padding: 8px 22px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--black-deep);
+            color: var(--gold-light);
+            border-color: var(--gold-primary);
+        }
+
+        /* Grilla de Productos */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+            gap: 35px;
+        }
+
+        .product-card {
+            background-color: var(--bg-light);
+            border: 1px solid rgba(197, 160, 89, 0.25);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.35s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border-color: var(--gold-primary);
+        }
+
+        .badge-tag {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: var(--sage-green);
+            color: var(--black-deep);
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .badge-tag.gold {
+            background-color: var(--gold-primary);
+            color: var(--black-deep);
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            height: 340px;
+            overflow: hidden;
+            background-color: #e6dfd5;
+        }
+
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-img-wrapper img {
+            transform: scale(1.06);
+        }
+
+        .product-info {
+            padding: 20px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-category {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        .product-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            color: var(--black-deep);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .product-price {
+            color: var(--gold-primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 11px;
+            background-color: var(--black-deep);
+            color: var(--bg-cream);
+            border: 1px solid var(--black-deep);
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--gold-primary);
+            border-color: var(--gold-primary);
+            color: var(--black-deep);
+            font-weight: 600;
+        }
+
+        /* --- BANNER DESTACADO CON LOGO --- */
+        .brand-highlight {
+            margin: 40px 8% 80px;
+            background-color: var(--black-deep);
+            border: 2px solid var(--gold-primary);
+            border-radius: 12px;
+            padding: 60px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+            color: var(--bg-cream);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+        }
+
+        .highlight-text {
+            max-width: 600px;
+        }
+
+        .highlight-text h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.6rem;
+            color: var(--gold-light);
+            margin-bottom: 15px;
+        }
+
+        .highlight-text p {
+            color: #d1c9c0;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+        }
+
+        .highlight-logo {
+            width: 190px;
+            height: 190px;
+            border-radius: 50%;
+            border: 2px solid var(--gold-primary);
+            object-fit: cover;
+            box-shadow: 0 0 30px rgba(197, 160, 89, 0.5);
+        }
+
+        /* --- PIE DE PÁGINA (FOOTER) --- */
+        footer {
+            background-color: var(--black-deep);
+            color: var(--bg-cream);
+            padding: 60px 8% 25px;
+            border-top: 3px solid var(--gold-primary);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--gold-primary);
+            font-size: 1.4rem;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+        }
+
+        .footer-col p, .footer-col a {
+            color: #bfb8b0;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: var(--gold-light);
+        }
+
+        .newsletter-input {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .newsletter-input input {
+            padding: 10px;
+            border: 1px solid var(--gold-primary);
+            background: #1a1817;
+            color: var(--bg-cream);
+            outline: none;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+        }
+
+        .newsletter-input button {
+            background-color: var(--gold-primary);
+            color: var(--black-deep);
+            border: none;
+            padding: 0 18px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 25px;
+            border-top: 1px solid rgba(197, 160, 89, 0.2);
+            font-size: 0.75rem;
+            color: #8c857B;
+        }
+
+        /* --- RESPONSIVE DESIGN (MÓVILES) --- */
+        @media (max-width: 900px) {
+            .nav-links {
+                display: none;
+            }
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 50px 6%;
+            }
+            .btn-group {
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero-frame {
+                width: 300px;
+                height: 380px;
+            }
+            .brand-highlight {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 6%;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="invitation-container">
-        <h1>El baile de las sombras</h1>
-        <h2>Has sido convocado</h2>
-
-        <div class="story-text">
-            Las puertas del viejo mausoleo se abrirán bajo la luz de la luna llena el próximo <span>sábado 10 de octubre</span>. 
-            El olvido aguarda a aquellos que decidan cruzar el umbral. 
-            Sella tu destino para notificar tu presencia a los anfitriones.
-        </div>
-
-        <div class="event-details">
-            📅 Fecha: Sábado 10 de octubre<br>
-            📍 Lugar: Cripta Subterránea N° 666
-        </div>
-
-        <form id="gothicForm" onsubmit="handleWhatsAppSubmission(event)">
-            <div>
-                <label for="nombre">Tu Nombre o Alias en la Oscuridad:</label>
-                <input type="text" id="nombre" name="nombre" required placeholder="Ej. Conde de la Bruma...">
-            </div>
-
-            <div>
-                <label for="asistencia">¿Aceptarás la condenación temporal?</label>
-                <select id="asistencia" name="asistencia" required>
-                    <option value="" disabled selected>Selecciona tu destino...</option>
-                    <option value="Sí, asistiré (Confirmado)">Sí, asistiré a entregar mi alma (Confirmado)</option>
-                    <option value="No asistiré (Rechazado)">No, la luz del sol me retiene (Rechazado)</option>
-                    <option value="Tal vez (Indeciso)">Quizás deambule por los pasillos (Indeciso)</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="disfraz">Elige tu Disfraz:</label>
-                <select id="disfraz" name="disfraz" required onchange="checkCustomOption(this)">
-                    <option value="" disabled selected>Selecciona tu vestimenta...</option>
-                    <option value="Vampiro Tradicional">Vampiro Tradicional</option>
-                    <option value="Zombie Errante">Zombie Errante</option>
-                    <option value="Bruja de los Páramos">Bruja de los Páramos</option>
-                    <option value="Fantasma Errante">Fantasma Errante</option>
-                    <option value="Demonio de la Cripta">Demonio de la Cripta</option>
-                    <option value="Calavera Catrina">Calavera Catrina</option>
-                    <option value="Licántropo">Licántropo</option>
-                    <option value="Cuervo de la Muerte">Cuervo de la Muerte</option>
-                    <option value="OTRO">Otro (Especifícalo tú mismo...)</option>
-                </select>
-            </div>
-
-            <div id="custom-costume-container">
-                <label for="otroDisfraz">Escribe tu disfraz personalizado:</label>
-                <input type="text" id="otroDisfraz" name="otroDisfraz" placeholder="Ej. Espectro sin cabeza...">
-            </div>
-
-            <div>
-                <label for="ofrenda">¿Qué ofrenda traerás? (opcional) </label>
-                <textarea id="ofrenda" name="ofrenda" rows="3" placeholder="Grupos, Canales o numeros para sortear..."></textarea>
-            </div>
-
-            <div class="checkbox-group">
-                <input type="checkbox" id="pacto" name="pacto" required>
-                <label for="pacto" style="margin-bottom: 0; cursor: pointer;">Juro guardar silencio sobre lo que ocurra esta noche.</label>
-            </div>
-
-            <button type="submit">Sellas tu Destino</button>
-        </form>
-
-        <div id="response-message">
-            Tu pacto ha sido enviado por las sendas oscuras hacia WhatsApp. ¡Nos veremos en la noche del baile!
-        </div>
+    <!-- Barra superior en tono verde salvia del lazo -->
+    <div class="top-bar">
+        ✨ Envío gratis en pedidos superiores a $50 | Nueva Colección Disponible ✨
     </div>
 
-    <script>
-        function checkCustomOption(selectElement) {
-            const customContainer = document.getElementById('custom-costume-container');
-            const customInput = document.getElementById('otroDisfraz');
-            if (selectElement.value === "OTRO") {
-                customContainer.style.display = "block";
-                customInput.required = true;
-            } else {
-                customContainer.style.display = "none";
-                customInput.required = false;
-                customInput.value = "";
-            }
-        }
+    <!-- Navegación -->
+    <header>
+        <a href="#" class="brand-container">
+            <!-- REEMPLAZA "logo.jpg" CON EL NOMBRE DE TU ARCHIVO DE IMAGEN -->
+            <img src="logo.jpg" alt="Logo ZUVAA" class="logo-img">
+            <div class="brand-text">
+                <span class="brand-title">ZUVAA</span>
+                <span class="brand-slogan">Ilumina tu estilo</span>
+            </div>
+        </a>
 
-        function handleWhatsAppSubmission(event) {
-            event.preventDefault();
-            
-            // ⚠️ CAMBIA ESTE NÚMERO por tu número de WhatsApp con código de país (ej: 549..., 521..., 57...)
-            const tuNumeroWhatsApp = "+584125891414"; 
+        <ul class="nav-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#coleccion">Colección</a></li>
+            <li><a href="#nosotros">Esencia</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
 
-            const nombre = document.getElementById('nombre').value;
-            const asistencia = document.getElementById('asistencia').value;
-            
-            let disfraz = document.getElementById('disfraz').value;
-            if (disfraz === "OTRO") {
-                disfraz = document.getElementById('otroDisfraz').value;
-            }
-            
-            const ofrenda = document.getElementById('ofrenda').value || "Ninguna";
+        <div class="header-actions">
+            <button class="cart-btn" onclick="verCarrito()">
+                🛍️ Carrito (<span id="cart-count">0</span>)
+            </button>
+        </div>
+    </header>
 
-            // Armar el mensaje formateado para WhatsApp
-            const mensaje = `🦇 *NUEVO PACTO - EL BAILE DE LAS SOMBRAS* 🦇%0A%0A` +
-                            `👤 *Nombre:* ${encodeURIComponent(nombre)}%0A` +
-                            `🕯️ *Asistencia:* ${encodeURIComponent(asistencia)}%0A` +
-                            `🎭 *Disfraz:* ${encodeURIComponent(disfraz)}%0A` +
-                            `🍷 *Ofrenda/Secreto:* ${encodeURIComponent(ofrenda)}`;
+    <!-- Sección Principal (Hero) -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <span class="hero-badge">Colección Exclusiva</span>
+            <h1>Elegancia que destaca en cada detalle</h1>
+            <span class="hero-cursive">Ilumina tu estilo</span>
+            <p>Descubre prendas diseñadas para realzar tu esencia con cortes delicados, texturas suaves y el toque dorado que caracteriza a <strong>ZUVAA</strong>.</p>
+            <div class="btn-group">
+                <a href="#coleccion" class="btn-primary">Ver Catálogo</a>
+                <a href="#nosotros" class="btn-secondary">Nuestra Esencia</a>
+            </div>
+        </div>
 
-            // Abrir WhatsApp con el mensaje preparado
-            const urlWhatsApp = `https://api.whatsapp.com/send?phone=${tuNumeroWhatsApp}&text=${mensaje}`;
-            window.open(urlWhatsApp, '_blank');
+        <div class="hero-visual">
+            <div class="hero-frame">
+                <!-- Imagen de moda referencial que combina con los tonos de ZUVAA -->
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=900&q=80" alt="Moda ZUVAA">
+            </div>
+        </div>
+    </section>
 
-            // Efecto visual de confirmación en la página
-            const form = document.getElementById('gothicForm');
-            form.style.opacity = '0.2';
-            form.style.pointerEvents = 'none';
+    <!-- Barra de Beneficios -->
+    <section class="features">
+        <div class="feature-item">
+            <h4>Calidad Boutique</h4>
+            <p>Telas seleccionadas con acabados de primera.</p>
+        </div>
+        <div class="feature-item">
+            <h4>Atención Personalizada</h4>
+            <p>Asesoría de tallas y estilo en todo momento.</p>
+        </div>
+        <div class="feature-item">
+            <h4>Compra Segura</h4>
+            <p>Múltiples métodos de pago y envíos rápidos.</p>
+        </div>
+    </section>
 
-            const responseMessage = document.getElementById('response-message');
-            responseMessage.style.display = 'block';
-        }
-    </script>
-</body>
-</html>
+    <!-- Catálogo de Productos -->
+    <section class="catalog" id="coleccion">
+        <div class="section-header">
+            <h2>Nuestra Colección</h2>
+            <p class="subtitle">Prendas con luz propia</p>
+            <div class="divider"></div>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active">Todo</button>
+            <button class="filter-btn">Vestidos</button>
+            <button class="filter-btn">Blusas & Tops</button>
+            <button class="filter-btn">Conjuntos</button>
+        </div>
+
+        <div class="product-grid">
+            <!-- Producto 1 -->
+            <div class="product-card">
+                <span class="badge-tag">Nuevo</span>
+                <div class="product-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=700&q=80" alt="Vestido Satinado">
+                </div>
+                <div class="product-info">
+                    <div>
+                        <p class="product-category">Vestidos
